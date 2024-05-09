@@ -12,25 +12,28 @@ type User = {
 
 function App() {
   const [users, setUsers] = useState<User[]>([]);
+  const [available, setAvailable] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [currentPage, setCurrentPage] = useState("1");
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [currentPage]);
 
   const fetchUsers = async () => {
+    setLoading(true);
     try {
       const response = await fetch(
         `https://65ca334d3b05d29307dfede3.mockapi.io/users/v1/users?page=${currentPage}&limit=10`,
       );
       if (response.ok) {
         const data = await response.json();
-        setUsers(data);
         setTimeout(() => {
           setLoading(false);
-        }, 2000);
+          setUsers(data);
+          setAvailable(true);
+        }, 1000);
       } else {
         console.error("Failed to fetch users");
       }
@@ -42,8 +45,7 @@ function App() {
   };
 
   const onPageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber.toString());
-    fetchUsers();
+    setCurrentPage(pageNumber);
   };
 
   return (
@@ -67,13 +69,15 @@ function App() {
             ))}
           </div>
         )}
-        <div className="mt-5 flex items-center justify-center">
-          <Pagination
-            currentPage={Number(currentPage)}
-            totalPages={5}
-            onPageChange={onPageChange}
-          />
-        </div>
+        {available && (
+          <div className="mt-5 flex items-center justify-center">
+            <Pagination
+              currentPage={currentPage}
+              totalPages={5}
+              onPageChange={onPageChange}
+            />
+          </div>
+        )}
       </div>
     </>
   );
