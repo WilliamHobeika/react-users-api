@@ -18,7 +18,7 @@ const Pagination = ({
         disabled={currentPage === 1}
         onClick={() => onPageChange(currentPage - 1)}
       >
-        Previous
+        Prev
       </Button>
       <p className="ml-3 mr-3 text-lg font-medium">{currentPage}</p>
       <Button
