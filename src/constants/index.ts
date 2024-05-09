@@ -17,7 +17,7 @@ export const headerLinks = [
   },
   {
     label: "Contact",
-    route: "#contact",
+    route: "/",
   },
 ];
 

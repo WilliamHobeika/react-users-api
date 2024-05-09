@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { LinearProgress } from "@mui/material";
 import UserCard from "./components/UserCard";
 import Pagination from "./components/Pagination";
+import SearchBar from "./components/SearchBar";
 
 type User = {
   avatar: string;
@@ -21,12 +22,14 @@ function App() {
     fetchUsers();
   }, [currentPage]);
 
-  const fetchUsers = async () => {
-    setLoading(true);
+  const fetchUsers = async (query?: string) => {
+    // setLoading(true);
     try {
-      const response = await fetch(
-        `https://65ca334d3b05d29307dfede3.mockapi.io/users/v1/users?page=${currentPage}&limit=10`,
-      );
+      const apiUrl = query
+        ? `https://65ca334d3b05d29307dfede3.mockapi.io/users/v1/users?search=${encodeURIComponent(query)}`
+        : `https://65ca334d3b05d29307dfede3.mockapi.io/users/v1/users?page=${currentPage}&limit=10`;
+
+      const response = await fetch(apiUrl);
       if (response.ok) {
         const data = await response.json();
         setTimeout(() => {
@@ -36,6 +39,7 @@ function App() {
         }, 1000);
       } else {
         console.error("Failed to fetch users");
+        alert("Failed to fetch users");
       }
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -46,6 +50,10 @@ function App() {
 
   const onPageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
+  };
+
+  const handleSearch = (query: string) => {
+    fetchUsers(query);
   };
 
   return (
@@ -62,6 +70,7 @@ function App() {
           </div>
         ) : (
           <div className="flex flex-col gap-10">
+            <SearchBar onSearch={handleSearch} />
             {users.map((user) => (
               <div key={user.id}>
                 <UserCard user={user} />
