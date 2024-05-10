@@ -1,30 +1,58 @@
-# React + TypeScript + Vite
+# React Pagination App 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simple React application built with Vite and Material-UI that fetches data from a mock API and displays it with pagination.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React
+- Vite
+- Material-UI
 
-## Expanding the ESLint configuration
+## Prerequisites
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Before running the app locally, ensure you have the following installed:
 
-- Configure the top-level `parserOptions` property like this:
+- Node.js
+- npm (Node Package Manager) 
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+## Getting Started
+
+To run this project locally, follow these steps:
+
+1. Clone the repository to your local machine:
+
+```bash
+git clone https://github.com/your-username/react-pagination-app.git
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. Navigate to the project directory:
+
+```bash
+cd vite-project
+```
+
+3. Install dependencies:
+
+```bash
+npm install
+```
+
+## Running the App
+
+1. Start the development server:
+
+```bash
+npm run dev
+```
+
+2. Open your browser and go to http://localhost:3000 to view the app.
+
+## Features
+
+- Fetches data from a mock API
+- Displays data with pagination
+- Provides a responsive user interface
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
