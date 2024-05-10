@@ -3,6 +3,7 @@ import { LinearProgress } from "@mui/material";
 import UserCard from "./components/UserCard";
 import Pagination from "./components/Pagination";
 import SearchBar from "./components/SearchBar";
+import Filter from "./components/Filter";
 
 type User = {
   avatar: string;
@@ -17,18 +18,29 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [filter, setFilter] = useState<string>("");
 
   useEffect(() => {
     fetchUsers();
-  }, [currentPage]);
+  }, [currentPage, filter]);
 
   const fetchUsers = async (query?: string) => {
-    // setLoading(true);
     try {
-      const apiUrl = query
-        ? `https://65ca334d3b05d29307dfede3.mockapi.io/users/v1/users?search=${encodeURIComponent(query)}`
-        : `https://65ca334d3b05d29307dfede3.mockapi.io/users/v1/users?page=${currentPage}&limit=10`;
+      let apiUrl = `https://65ca334d3b05d29307dfede3.mockapi.io/users/v1/users?page=${currentPage}&limit=10`;
+      if (query) {
+        apiUrl = `https://65ca334d3b05d29307dfede3.mockapi.io/users/v1/users?search=${encodeURIComponent(query)}`;
+      }
+      if (filter) {
+        apiUrl += `&sortBy=${filter}`;
+      }
 
+      // const apiUrl = query
+      //   ? `https://65ca334d3b05d29307dfede3.mockapi.io/users/v1/users?search=${encodeURIComponent(query)}`
+      //   : `https://65ca334d3b05d29307dfede3.mockapi.io/users/v1/users?page=${currentPage}&limit=10`;
+
+      if (apiUrl.includes("page")) {
+        setLoading(true);
+      }
       const response = await fetch(apiUrl);
       if (response.ok) {
         const data = await response.json();
@@ -56,6 +68,10 @@ function App() {
     fetchUsers(query);
   };
 
+  const handleFilterChange = (newFilter: string) => {
+    setFilter(newFilter);
+  };
+
   return (
     <>
       <div className="wrapper mb-20 h-fit">
@@ -70,7 +86,10 @@ function App() {
           </div>
         ) : (
           <div className="flex flex-col gap-10">
-            <SearchBar onSearch={handleSearch} />
+            <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+              <SearchBar onSearch={handleSearch} />
+              <Filter onFilterChange={handleFilterChange} />
+            </div>
             {users.map((user) => (
               <div key={user.id}>
                 <UserCard user={user} />
