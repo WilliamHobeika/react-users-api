@@ -1,6 +1,6 @@
 # React Pagination App 
 
-This is a simple React application built with Vite and Material-UI that fetches data from a mock API and displays it with pagination.
+This is a React application built with Vite and Material-UI that fetches data from a mock API and displays it with pagination, searching and sorting.
 
 ## Tech Stack
 
