@@ -18,7 +18,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [filter, setFilter] = useState<string>("");
+  const [filter, setFilter] = useState<string>("none");
 
   useEffect(() => {
     fetchUsers();
@@ -33,10 +33,6 @@ function App() {
       if (filter) {
         apiUrl += `&sortBy=${filter}`;
       }
-
-      // const apiUrl = query
-      //   ? `https://65ca334d3b05d29307dfede3.mockapi.io/users/v1/users?search=${encodeURIComponent(query)}`
-      //   : `https://65ca334d3b05d29307dfede3.mockapi.io/users/v1/users?page=${currentPage}&limit=10`;
 
       if (apiUrl.includes("page")) {
         setLoading(true);
@@ -88,7 +84,7 @@ function App() {
           <div className="flex flex-col gap-10">
             <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
               <SearchBar onSearch={handleSearch} />
-              <Filter onFilterChange={handleFilterChange} />
+              <Filter filter={filter} onFilterChange={handleFilterChange} />
             </div>
             {users.map((user) => (
               <div key={user.id}>

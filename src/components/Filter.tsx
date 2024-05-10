@@ -5,19 +5,15 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import { useState } from "react";
 
 type FilterProps = {
+  filter: string;
   onFilterChange: (filter: string) => void;
 };
 
-const Filter = ({ onFilterChange }: FilterProps) => {
-  const [filter, setFilter] = useState<string>("");
-
+const Filter = ({ filter, onFilterChange }: FilterProps) => {
   const handleChange = (event: SelectChangeEvent) => {
-    const newFilter = event.target.value as string;
-    setFilter(newFilter);
-    onFilterChange(newFilter);
+    onFilterChange(event.target.value as string);
   };
 
   return (
