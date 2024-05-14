@@ -28,7 +28,7 @@ git clone https://github.com/your-username/react-pagination-app.git
 2. Navigate to the project directory:
 
 ```bash
-cd vite-project
+cd users-api-ui
 ```
 
 3. Install dependencies:
